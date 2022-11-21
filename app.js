@@ -32,6 +32,9 @@ app.get("/api/movies/:id", movieHandlers.getMovieById);
 ///////// POST MOVIES ////////////////
 app.post("/api/movies", movieHandlers.postMovie);
 
+///////////////// PUT MOVIE ////////////////
+app.put("/api/movies/:id", movieHandlers.updateMovie);
+
 ///////////////////////// USERS /////////////////////////////////
 
 const userHandlers = require("./userHandlers");
@@ -42,8 +45,14 @@ app.get("/api/users/:id", userHandlers.getUserById);
 ///////////////// POST USERS ////////////////
 app.post("/api/users", userHandlers.postUser);
 
-///////////////// PUT MOVIE ////////////////
-app.put("/api/movies/:id", movieHandlers.updateMovie);
-
 ///////////////// PUT USERS ////////////////
 app.put("/api/users/:id", userHandlers.updateUser);
+
+///////////////// MIDDLEWARE ////////////////
+const { validateMovie, validateUser } = require("./validators.js");
+
+app.post("/api/movies", validateMovie, movieHandlers.postMovie);
+app.post("/api/users", validateUser, userHandlers.postUser);
+
+app.put("/api/movies/:id", validateMovie, movieHandlers.updateMovie);
+app.put("/api/users/:id", validateUser, userHandlers.updateUser);

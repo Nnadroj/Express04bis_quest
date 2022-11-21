@@ -2,7 +2,7 @@ const database = require("./database");
 
 /* const users = []; */
 
-////////////////////// GET MOVIES//////////////////////////
+////////////////////// GET USERS//////////////////////////
 const getUsers = (req, res) => {
   database
     .query("select * from users")
